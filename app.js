@@ -1,9 +1,9 @@
 import DiscordJS, { GatewayIntentBits } from 'discord.js'
 import dotenv from 'dotenv'
-import express from 'express'
+// import express from 'express'
 
-const app = express()
-const port = 8300 || 8400
+// const app = express()
+// const port = 8300 || 8400
 
 dotenv.config()
 
