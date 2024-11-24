@@ -36,7 +36,7 @@ const client = new DiscordJS.Client({
 
 const conversation = [
     { name: '烏科獸', description: '呼叫烏科獸', answer: '我是 烏科獸' },
-    { name: '你可以做什麼', description: '了解機器人功能', answer: '我可以實現你所有願望' },
+    { name: '你可以做什麼', description: '了解機器人功能', answer: '我可以陪你聊聊天' },
 ]
 
 // ready事件，當機器人準備好時觸發
@@ -100,12 +100,23 @@ client.on('interactionCreate', async(interaction) => {
     }
 })
 
+const responseText = [
+    { content: 'test', reply: '烏科獸BOT已啟動, BOT準備完畢'},
+    { content: '天氣', reply: '你喜歡今天的天氣嗎？'},
+    { content: '吃飯', reply: '要記得吃飽飯，別餓肚子了'},
+    { content: '數碼寶貝', reply: '在叫我嗎？我是烏科獸'},
+]
+
+
 
 client.on('messageCreate', (message)=> {
-    if(message.content === 'test'){
-        message.reply({
-            content:'烏科獸BOT已啟動, BOT準備完畢'
-        })
+    for(const text of responseText){
+        const regx = new RegExp(text.content)
+        if(regx.message.content){
+            message.reply({
+                content: text.reply
+            })
+        }  
     }
 })
 
