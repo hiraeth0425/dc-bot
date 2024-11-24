@@ -110,13 +110,26 @@ const responseText = [
 
 
 client.on('messageCreate', async(message)=> {
-    for(const text of responseText){
-        const regx = new RegExp(text.content)
-        if(regx.message.content){
-            await message.reply({
-                content: text.reply
-            })
-        }  
+    // 忽略機器人的訊息
+    if (message.author.bot) return;
+    
+    try{
+        for(const text of responseText){
+            const regx = new RegExp(text.content.toLowerCase(), 'i')
+            if(regx.test(message.content)){
+                // 增加一些隨機延遲，使回應更自然
+                const delay = Math.random() * 1000 + 500; // 500-1500ms的延遲
+    
+                // 顯示正在輸入狀態
+                await message.channel.sendTyping();
+    
+                await message.reply({
+                    content: text.reply
+                })
+            }  
+        }
+    }catch(err){
+        console.error('處理訊息時發生錯誤:', err);        
     }
 })
 
