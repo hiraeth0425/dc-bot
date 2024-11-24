@@ -1,11 +1,19 @@
 import DiscordJS, { GatewayIntentBits } from 'discord.js'
 import dotenv from 'dotenv'
-// import express from 'express'
+import express from 'express'
+import cors from "cors"
 
-// const app = express()
-// const port = 8300 || 8400
+const app = express()
+const port = 10000 || 8000
 
 dotenv.config()
+
+app.use(cors({
+    origin: ['https://secrets-demo.onrender.com', 'http://localhost:10000', 'http://localhost:8000'],
+    credentials: true, // 重要：允許跨域攜帶 cookie
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
 
 // GatewayIntentBits 宣告機器人的功能
 const client = new DiscordJS.Client({
@@ -104,3 +112,14 @@ client.on('messageCreate', (message)=> {
 
 
 client.login(process.env.TOKEN)
+
+
+const server = app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+
+// 添加錯誤處理
+server.on('error', (error) => {
+    console.error('Server Error:', error);
+  });
+  
