@@ -109,11 +109,11 @@ const responseText = [
 
 
 
-client.on('messageCreate', (message)=> {
+client.on('messageCreate', async(message)=> {
     for(const text of responseText){
         const regx = new RegExp(text.content)
         if(regx.message.content){
-            message.reply({
+            await message.reply({
                 content: text.reply
             })
         }  
