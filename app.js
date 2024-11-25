@@ -4,7 +4,7 @@ import express from 'express'
 import cors from "cors"
 
 const app = express()
-const port = 10000 || 8000
+const port = 8080 || 8000
 
 dotenv.config()
 
